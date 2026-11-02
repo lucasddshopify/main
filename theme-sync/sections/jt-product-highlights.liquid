@@ -1,0 +1,82 @@
+{% render 'jt-base' %}
+
+{%- liquid
+  assign points = product.metafields.custom.points_forts.value
+  assign activities = product.metafields.custom.activites.value
+  assign media_index = section.settings.media_index | minus: 1
+  assign visual = section.settings.image
+  if visual == blank
+    assign visual = product.media[media_index]
+  endif
+-%}
+
+{%- if points != blank -%}
+<section class="jt jt-hl" id="jt-hl-{{ section.id }}">
+  <div class="jt-container jt-hl__grid">
+    <div class="jt-hl__visual"{% if visual %} style="aspect-ratio: {{ visual.aspect_ratio | default: 0.8 }};"{% endif %}>
+      {%- if visual != blank -%}
+        {{ visual | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(max-width: 989px) 100vw, 50vw', alt: product.title }}
+      {%- else -%}
+        <span class="jt-hl__ph"></span>
+      {%- endif -%}
+    </div>
+
+    <div class="jt-hl__content">
+      {%- if section.settings.kicker != blank -%}<p class="jt-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="jt-hl__title jt-display">{{ section.settings.title }}</h2>
+      <ol class="jt-hl__list">
+        {%- for p in points -%}
+          {%- assign bits = p | split: '|' -%}
+          <li>
+            <span class="jt-hl__num">{{ forloop.index | prepend: '0' }}</span>
+            <div>
+              <h3>{{ bits[0] | strip }}</h3>
+              {%- if bits[1] -%}<p>{{ bits[1] | strip }}</p>{%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+      {%- if activities != blank -%}
+        <p class="jt-hl__acts"><span>Idéal pour</span> {{ activities | join: ' · ' }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #jt-hl-{{ section.id }} { background: var(--jt-bg); padding: 96px 0; border-top: 1px solid var(--jt-line); position: relative; overflow: hidden; }
+  #jt-hl-{{ section.id }}::before { content: ""; position: absolute; width: 760px; height: 760px; right: -260px; top: -240px; border-radius: 50%; background: radial-gradient(circle, var(--jt-glow), transparent 65%); pointer-events: none; }
+  .jt-hl__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; position: relative; }
+  .jt-hl__visual { border-radius: var(--jt-radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: var(--jt-surface); }
+  .jt-hl__visual img, .jt-hl__ph { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .jt-hl__title { margin: 0 0 40px; font-size: clamp(32px, 4vw, 56px); }
+  .jt-hl__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--jt-line); }
+  .jt-hl__list li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--jt-line); }
+  .jt-hl__num { font-family: var(--jt-display); font-style: italic; font-weight: 800; font-size: 15px; color: var(--jt-accent); padding-top: 2px; }
+  .jt-hl__list h3 { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--jt-text); }
+  .jt-hl__list p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--jt-muted); }
+  .jt-hl__acts { margin: 28px 0 0; font-size: 14px; color: var(--jt-text); }
+  .jt-hl__acts span { font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--jt-muted); margin-right: 10px; }
+  @media (max-width: 989px) {
+    #jt-hl-{{ section.id }} { padding: 64px 0; }
+    .jt-hl__grid { grid-template-columns: 1fr; gap: 36px; }
+    .jt-hl__visual { max-width: 520px; margin-inline: auto; width: 100%; }
+    .jt-hl__list li { grid-template-columns: 40px 1fr; }
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "JT · Points forts produit",
+  "tag": "div",
+  "class": "jt-section-highlights",
+  "settings": [
+    { "type": "paragraph", "content": "Contenu tiré des champs « Points forts » (Titre | Texte) et « Idéal pour » du produit. Masquée si le produit n'a pas de points forts." },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "Conçu pour bouger" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Pourquoi tu vas l'adorer" },
+    { "type": "range", "id": "media_index", "label": "Photo du produit à utiliser (n°)", "min": 1, "max": 10, "step": 1, "default": 2 },
+    { "type": "image_picker", "id": "image", "label": "Ou une autre image" }
+  ]
+}
+{% endschema %}

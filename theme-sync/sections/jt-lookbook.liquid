@@ -1,0 +1,167 @@
+{% render 'jt-base' %}
+
+{%- liquid
+  assign lb_off = section.settings.start | minus: 1
+  assign shots = product.media | where: 'media_type', 'image'
+  assign natural = false
+  if section.settings.layout == 'natural'
+    assign natural = true
+  endif
+  assign lb_max = 4
+  if natural
+    assign lb_max = section.settings.max | default: 6
+  endif
+  assign count = 0
+  for m in shots offset: lb_off limit: lb_max
+    assign count = count | plus: 1
+  endfor
+  for block in section.blocks
+    if block.settings.image != blank and natural == false
+      assign count = count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if count > 0 -%}
+<section class="jt jt-lb" id="jt-lb-{{ section.id }}">
+  <div class="jt-container">
+    <div class="jt-lb__head">
+      <div>
+        {%- if section.settings.kicker != blank -%}<p class="jt-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+        <h2 class="jt-lb__title jt-display">
+          {{- section.settings.title -}}
+          {%- if section.settings.title_accent != blank %} <span class="jt-accent">{{ section.settings.title_accent }}</span>{%- endif -%}
+        </h2>
+      </div>
+      {%- if section.settings.text != blank -%}<div class="jt-lb__text">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    {%- if natural -%}
+      {%- liquid
+        assign per_row = section.settings.per_row | default: 3
+        assign rows = count | plus: per_row | minus: 1 | divided_by: per_row
+        assign base = count | divided_by: rows
+        assign extra = count | modulo: rows
+      -%}
+      <div class="jt-lb__nat">
+        {%- assign idx = 0 -%}
+        {%- for r in (1..rows) -%}
+          {%- assign in_row = base -%}
+          {%- if r <= extra -%}{%- assign in_row = base | plus: 1 -%}{%- endif -%}
+          {%- assign row_end = idx | plus: in_row -%}
+          {%- assign sum_ar = 0.0 -%}
+          {%- for m in shots offset: lb_off limit: lb_max -%}
+            {%- if forloop.index0 >= idx and forloop.index0 < row_end -%}
+              {%- assign sum_ar = sum_ar | plus: m.aspect_ratio -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <div class="jt-lb__row" style="--sum: {{ sum_ar }}; --n: {{ in_row }};">
+            {%- for m in shots offset: lb_off limit: lb_max -%}
+              {%- if forloop.index0 >= idx and forloop.index0 < row_end -%}
+                {%- assign ar = m.aspect_ratio | default: 0.8 -%}
+                <figure class="jt-lb__nitem" style="--ar: {{ ar }};">
+                  {{ m | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 600, 800, 1100, 1400', sizes: '(max-width: 749px) 75vw, 40vw', alt: m.alt | default: product.title }}
+                </figure>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign idx = row_end -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+    <div class="jt-lb__grid jt-lb__grid--{{ count | at_most: 4 }}">
+      {%- assign i = 0 -%}
+      {%- for m in shots offset: lb_off limit: 4 -%}
+        {%- assign i = i | plus: 1 -%}
+        <figure class="jt-lb__item jt-lb__item--{{ i }}">
+          {{ m | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(max-width: 749px) 80vw, 40vw', alt: m.alt | default: product.title }}
+        </figure>
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.image != blank and i < 4 -%}
+          {%- assign i = i | plus: 1 -%}
+          <figure class="jt-lb__item jt-lb__item--{{ i }}" {{ block.shopify_attributes }}>
+            {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(max-width: 749px) 80vw, 40vw', alt: block.settings.image.alt | default: product.title }}
+          </figure>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_pulse -%}{% render 'jt-pulse', pos: 84, class: 'jt-lb__pulse' %}{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #jt-lb-{{ section.id }} { padding: {{ section.settings.pad_top }}px 0 {{ section.settings.pad_bottom }}px;
+    background: radial-gradient(ellipse 45% 40% at 85% 30%, color-mix(in srgb, var(--jt-accent) 9%, transparent) 0%, transparent 100%), var(--jt-bg); }
+  .jt-lb__head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: end; margin-bottom: 40px; }
+  .jt-lb__title { margin: 0; font-size: clamp(34px, 4.6vw, 72px); }
+  .jt-lb__text { font-size: 16px; line-height: 1.7; color: var(--jt-muted); max-width: 460px; }
+  .jt-lb__text p { margin: 0 0 10px; }
+  .jt-lb__grid { display: grid; gap: 14px; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(0, auto); }
+  .jt-lb__item { margin: 0; overflow: hidden; border-radius: var(--jt-radius-lg); background: var(--jt-surface); }
+  .jt-lb__item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .jt-lb__item:hover img { transform: scale(1.03); }
+  .jt-lb__grid--1 .jt-lb__item--1 { grid-column: 3 / span 8; aspect-ratio: 16 / 10; }
+  .jt-lb__grid--2 .jt-lb__item { grid-column: span 6; aspect-ratio: 4 / 5; }
+  .jt-lb__grid--3 .jt-lb__item--1 { grid-column: 1 / span 6; grid-row: 1 / span 2; }
+  .jt-lb__grid--3 .jt-lb__item--2, .jt-lb__grid--3 .jt-lb__item--3 { grid-column: 7 / span 6; aspect-ratio: 16 / 11; }
+  .jt-lb__grid--4 .jt-lb__item--1 { grid-column: 1 / span 5; grid-row: 1 / span 2; }
+  .jt-lb__grid--4 .jt-lb__item--2 { grid-column: 6 / span 4; aspect-ratio: 4 / 5; }
+  .jt-lb__grid--4 .jt-lb__item--3 { grid-column: 10 / span 3; aspect-ratio: 3 / 5; }
+  .jt-lb__grid--4 .jt-lb__item--4 { grid-column: 6 / span 7; aspect-ratio: 16 / 7; }
+  .jt-lb__pulse { --jt-pulse-h: 46px; margin-top: 40px; }
+  .jt-lb__nat { display: grid; gap: 14px; }
+  .jt-lb__row { display: flex; gap: 14px; align-items: flex-start; max-width: calc(var(--jt-lb-h, 640px) * var(--sum) + 14px * (var(--n) - 1)); margin-inline: auto; width: 100%; }
+  .jt-lb__nitem { margin: 0; flex: var(--ar) 1 0; min-width: 0; aspect-ratio: var(--ar); overflow: hidden; border-radius: var(--jt-radius-lg); background: var(--jt-surface); }
+  .jt-lb__nitem img { width: 100%; height: 100%; display: block; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .jt-lb__nitem:hover img { transform: scale(1.03); }
+  @media (max-width: 749px) {
+    .jt-lb__head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px; }
+    .jt-lb__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--jt-gutter) * -1); padding: 0 var(--jt-gutter); gap: 10px; }
+    .jt-lb__grid::-webkit-scrollbar { display: none; }
+    .jt-lb__item, .jt-lb__grid .jt-lb__item { flex: 0 0 78%; aspect-ratio: 4 / 5 !important; scroll-snap-align: start; }
+    .jt-lb__pulse { --jt-pulse-h: 38px; margin-top: 28px; }
+    .jt-lb__nat { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--jt-gutter) * -1); padding: 0 var(--jt-gutter); }
+    .jt-lb__nat::-webkit-scrollbar { display: none; }
+    .jt-lb__row { display: contents; }
+    .jt-lb__nitem { flex: 0 0 auto; height: min(62vh, 108vw); width: auto; scroll-snap-align: start; }
+  }
+</style>
+{%- elsif request.design_mode -%}
+  <div style="padding:32px;margin:24px;border:1px dashed rgba(255,255,255,.3);border-radius:12px;font-family:system-ui;text-align:center;color:#f4f4f5;background:#141416">
+    <strong>JT · Lookbook produit</strong><br>Ajoute des photos au produit après celles de la galerie, ou choisis des images dans les blocs.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "JT · Lookbook produit",
+  "tag": "div",
+  "class": "jt-section-lookbook",
+  "settings": [
+    { "type": "paragraph", "content": "Affiche jusqu'à 4 photos lifestyle du produit, à partir de la photo n° choisie (celles qui ne sont pas dans la galerie du haut). Des images supplémentaires peuvent être ajoutées en blocs." },
+    { "type": "select", "id": "layout", "label": "Mise en page", "default": "mosaic", "options": [
+      { "value": "natural", "label": "Format d'origine (aucune photo rognée)" },
+      { "value": "mosaic", "label": "Mosaïque (cadrages fixes)" }
+    ]},
+    { "type": "range", "id": "start", "label": "Commencer à la photo n°", "min": 1, "max": 30, "step": 1, "default": 5 },
+    { "type": "range", "id": "max", "label": "Nombre de photos (format d'origine)", "min": 1, "max": 12, "step": 1, "default": 6 },
+    { "type": "range", "id": "per_row", "label": "Photos par ligne sur ordinateur (format d'origine)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "Lookbook" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Faite pour" },
+    { "type": "text", "id": "title_accent", "label": "Fin du titre (couleur d'accent)", "default": "bouger." },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "checkbox", "id": "show_pulse", "label": "Afficher la ligne cardio", "default": true },
+    { "type": "range", "id": "pad_top", "label": "Marge haute", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 88 },
+    { "type": "range", "id": "pad_bottom", "label": "Marge basse", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    { "type": "image", "name": "Image", "limit": 4, "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" }
+    ]}
+  ],
+  "presets": [{ "name": "JT · Lookbook produit" }]
+}
+{% endschema %}
