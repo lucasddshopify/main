@@ -1,0 +1,81 @@
+{%- comment -%}
+  Retourne un fond CSS pour une valeur d'option « Couleur ».
+  Priorité : pastille définie dans Shopify → correspondance par nom → gris.
+  Usage : {% render 'jt-color', value: value %}
+{%- endcomment -%}
+{%- liquid
+  if value.swatch.color
+    echo value.swatch.color
+  elsif value.swatch.image
+    assign swatch_url = value.swatch.image | image_url: width: 40
+    echo 'url(' | append: swatch_url | append: ') center/cover'
+  else
+    assign n = value | downcase | strip
+    case n
+      when 'noir', 'black'
+        echo '#14151c'
+      when 'blanc', 'white', 'écru', 'ecru'
+        echo '#ffffff'
+      when 'gris', 'grey', 'gray', 'anthracite'
+        echo '#8a8f9c'
+      when 'gris clair', 'light grey', 'light gray', 'perle'
+        echo '#cfcfca'
+      when 'rose', 'pink', 'fuchsia', 'magenta'
+        echo '#ff2d87'
+      when 'rose fuchsia'
+        echo 'linear-gradient(180deg, #ff7ab8 0%, #e0208a 50%, #3a1240 100%)'
+      when 'lilas léopard', 'lilas leopard'
+        echo 'radial-gradient(circle at 30% 32%, #b99bf0 20%, transparent 23%), radial-gradient(circle at 70% 68%, #b99bf0 18%, transparent 21%), #efe9fc'
+      when 'rose léopard', 'rose leopard'
+        echo 'radial-gradient(circle at 30% 32%, #ff9cc6 20%, transparent 23%), radial-gradient(circle at 70% 68%, #ff9cc6 18%, transparent 21%), #e0457f'
+      when 'corail', 'coral'
+        echo 'linear-gradient(180deg, #ff5f73 0%, #ffb27a 100%)'
+      when 'pastel', 'tie-dye', 'tie and dye'
+        echo 'linear-gradient(135deg, #ffb6d5 0%, #fff2a8 40%, #9ff0e2 70%, #ffb6d5 100%)'
+      when 'orange'
+        echo '#ff8a1f'
+      when 'jaune fluo', 'jaune néon', 'jaune neon', 'fluo'
+        echo '#d7ff2e'
+      when 'jaune', 'yellow'
+        echo '#ffc533'
+      when 'violet', 'purple', 'mauve'
+        echo '#6a1fb0'
+      when 'lilas', 'lavande', 'lavender'
+        echo '#b9a3f0'
+      when 'rose pâle', 'rose pale', 'rose poudré', 'rose poudre', 'rose pastel', 'rose clair'
+        echo '#f6bcd2'
+      when 'aqua', 'turquoise clair'
+        echo '#6fe8dc'
+      when 'chocolat', 'marron', 'brun', 'brown'
+        echo '#4a2c22'
+      when 'crème', 'creme', 'cream', 'ivoire'
+        echo '#f2ead6'
+      when 'turquoise'
+        echo 'linear-gradient(180deg, #5ff0e0 0%, #1f8fe0 55%, #1b2e8a 100%)'
+      when 'menthe', 'mint', 'cyan', 'vert menthe'
+        echo '#7fe3cf'
+      when 'bleu', 'blue', 'bleu roi', 'royal'
+        echo '#1f5fe0'
+      when 'bleu fluo', 'bleu néon', 'bleu neon'
+        echo 'linear-gradient(135deg, #1f5fe0 55%, #d7ff2e 55%)'
+      when 'bleu marine', 'marine', 'navy'
+        echo '#1b2447'
+      when 'vert', 'green'
+        echo '#2fb45a'
+      when 'kaki', 'khaki', 'olive', 'vert olive'
+        echo '#55602f'
+      when 'rouge', 'red'
+        echo '#e02a3a'
+      when 'bordeaux', 'burgundy', 'lie de vin', 'lie-de-vin'
+        echo '#6b1b2e'
+      when 'aubergine', 'prune', 'plum', 'eggplant'
+        echo '#4a2340'
+      when 'taupe', 'mocha', 'moka'
+        echo '#8b7766'
+      when 'beige', 'sable', 'sand'
+        echo '#d9c7a6'
+      else
+        echo '#c4c7d1'
+    endcase
+  endif
+-%}
