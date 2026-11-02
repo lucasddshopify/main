@@ -1,0 +1,275 @@
+{
+  "sections": {
+    "main": {
+      "type": "jt-main-product",
+      "blocks": {
+        "reas_1": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Livraison offerte dès 80 €"
+          }
+        },
+        "reas_2": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Retours 30 jours"
+          }
+        },
+        "reas_3": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Paiement sécurisé"
+          }
+        },
+        "acc_desc": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "acc_details": {
+          "type": "accordion",
+          "settings": {
+            "title": "Détails & composition",
+            "source": "details",
+            "content": "",
+            "open": false
+          }
+        },
+        "acc_care": {
+          "type": "accordion",
+          "settings": {
+            "title": "Entretien",
+            "source": "entretien",
+            "content": "",
+            "open": false
+          }
+        },
+        "acc_ship": {
+          "type": "accordion",
+          "settings": {
+            "title": "Livraison & retours",
+            "source": "custom",
+            "content": "<p>Livraison offerte dès 80 € d'achat. Les délais et tarifs de livraison sont indiqués au moment du paiement.</p><p>Tu as 30 jours pour changer d'avis : l'article doit être non porté, non lavé et dans son emballage d'origine.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "reas_1",
+        "reas_2",
+        "reas_3",
+        "acc_desc",
+        "acc_details",
+        "acc_care",
+        "acc_ship"
+      ],
+      "settings": {
+        "gallery_layout": "carousel",
+        "gallery_max": 8,
+        "size_guide": "",
+        "free_shipping": 80,
+        "show_checks": true,
+        "show_dynamic_checkout": true,
+        "pad_bottom": 72
+      }
+    },
+    "highlights": {
+      "type": "jt-product-highlights",
+      "settings": {
+        "kicker": "Conçu pour bouger",
+        "title": "Pourquoi tu vas l'adorer",
+        "media_index": 2
+      }
+    },
+    "lookbook": {
+      "type": "jt-lookbook",
+      "blocks": {
+        "image_eUWeaT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/12-no-excuses-lookbook-blanc-photo.jpg"
+          }
+        },
+        "image_LU9mbT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/09-no-excuses-lookbook-blanc.jpg"
+          }
+        },
+        "image_xVE3GL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/10-no-excuses-lookbook-rose.jpg"
+          }
+        },
+        "image_Yj7gAr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/11-no-excuses-lookbook-noir.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_eUWeaT",
+        "image_LU9mbT",
+        "image_xVE3GL",
+        "image_Yj7gAr"
+      ],
+      "settings": {
+        "start": 9,
+        "kicker": "Nouvelle collection",
+        "title": "Pas",
+        "title_accent": "d'excuses.",
+        "text": "<p>Noir, blanc, bleu ou rose : un coupe-vent court qui se porte ouvert sur une brassière pour courir, ou fermé en ville quand le vent se lève. À toi de choisir ton style.</p>",
+        "show_pulse": true,
+        "pad_top": 88,
+        "pad_bottom": 72,
+        "layout": "natural",
+        "max": 4,
+        "per_row": 3
+      }
+    },
+    "reviews": {
+      "type": "jt-reviews",
+      "settings": {
+        "kicker": "La communauté",
+        "title": "Elles en parlent",
+        "show_summary": true,
+        "cta_text": "Tu portes Jogging Therapy ? Partage ton avis.",
+        "cta_label": "Laisser un avis",
+        "cta_link": "",
+        "instagram_url": "https://www.instagram.com/joggingtherapylifestyle/",
+        "instagram_label": "@joggingtherapylifestyle",
+        "pad_top": 88,
+        "pad_bottom": 88
+      }
+    },
+    "faq": {
+      "type": "jt-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle taille choisir ?",
+            "answer": "<p>La coupe est volontairement ample et oversize : prends ta taille habituelle pour l'effet oversize, ou une taille en dessous pour un tombé plus près du corps.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Est-ce qu'elle protège de la pluie ?",
+            "answer": "<p>C'est un coupe-vent léger, idéal contre le vent et la fraîcheur au printemps et à l'automne. Il n'est pas conçu comme une veste imperméable pour les fortes pluies.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Comment l'entretenir ?",
+            "answer": "<p>Lavage en machine, ou nettoyage à sec professionnel. Retourne-la avant le lavage pour préserver le logo.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison est-elle offerte ?",
+            "answer": "<p>Oui, dès 80 € d'achat. En dessous, les frais et délais de livraison sont affichés avant le paiement.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner ou échanger un article ?",
+            "answer": "<p>Bien sûr. Tu as 30 jours pour nous retourner un article non porté, non lavé et dans son emballage d'origine. Contacte-nous et on s'occupe du reste.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "kicker": "Aide",
+        "title": "Questions fréquentes",
+        "text": "<p>Une autre question ? Notre équipe te répond avec plaisir.</p>",
+        "button_label": "Nous contacter",
+        "button_link": ""
+      }
+    },
+    "related": {
+      "type": "jt-related-products",
+      "settings": {
+        "kicker": "À associer",
+        "title": "Complète ton look",
+        "intent": "related",
+        "fallback": "femme",
+        "limit": 4
+      }
+    },
+    "reassurance": {
+      "type": "jt-reassurance",
+      "blocks": {
+        "r1": {
+          "type": "item",
+          "settings": {
+            "icon": "auto",
+            "title": "Livraison offerte",
+            "text": "Dès 80 € d'achat"
+          }
+        },
+        "r2": {
+          "type": "item",
+          "settings": {
+            "icon": "auto",
+            "title": "Retours 30 jours",
+            "text": "Simples et rapides"
+          }
+        },
+        "r3": {
+          "type": "item",
+          "settings": {
+            "icon": "auto",
+            "title": "Paiement sécurisé",
+            "text": "Transactions 100 % protégées"
+          }
+        },
+        "r4": {
+          "type": "item",
+          "settings": {
+            "icon": "auto",
+            "title": "Service client",
+            "text": "Une vraie personne te répond"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "statement": "Plus qu'un vêtement, un état d'esprit.",
+        "statement_2": "",
+        "show_pulse": false,
+        "pad_top": 88,
+        "pad_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main",
+    "highlights",
+    "lookbook",
+    "reviews",
+    "faq",
+    "related",
+    "reassurance"
+  ]
+}
