@@ -1,0 +1,236 @@
+{
+  "sections": {
+    "main": {
+      "type": "jt-main-product",
+      "blocks": {
+        "reas_1": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Livraison offerte dès 80 €"
+          }
+        },
+        "reas_2": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Retours 30 jours"
+          }
+        },
+        "reas_3": {
+          "type": "reassurance",
+          "settings": {
+            "text": "Paiement sécurisé"
+          }
+        },
+        "acc_desc": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "acc_details": {
+          "type": "accordion",
+          "settings": {
+            "title": "Détails & composition",
+            "source": "details",
+            "content": "",
+            "open": false
+          }
+        },
+        "acc_care": {
+          "type": "accordion",
+          "settings": {
+            "title": "Entretien",
+            "source": "entretien",
+            "content": "",
+            "open": false
+          }
+        },
+        "acc_ship": {
+          "type": "accordion",
+          "settings": {
+            "title": "Livraison & retours",
+            "source": "custom",
+            "content": "<p>Livraison offerte dès 80 € d'achat. Les délais et tarifs de livraison sont indiqués au moment du paiement.</p><p>Tu as 30 jours pour changer d'avis : l'article doit être non porté, non lavé et dans son emballage d'origine.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "reas_1",
+        "reas_2",
+        "reas_3",
+        "acc_desc",
+        "acc_details",
+        "acc_care",
+        "acc_ship"
+      ],
+      "settings": {
+        "gallery_layout": "carousel",
+        "gallery_max": 6,
+        "size_guide": "",
+        "free_shipping": 80,
+        "show_checks": true,
+        "show_dynamic_checkout": true,
+        "pad_bottom": 72
+      }
+    },
+    "highlights": {
+      "type": "jt-product-highlights",
+      "settings": {
+        "kicker": "Conçu pour bouger",
+        "title": "Pourquoi tu vas l'adorer",
+        "media_index": 2
+      }
+    },
+    "lookbook": {
+      "type": "jt-lookbook",
+      "settings": {
+        "start": 7,
+        "kicker": "Veste Urban Move",
+        "title": "Prête à bouger,",
+        "title_accent": "peu importe la météo.",
+        "text": "<p>Légère, elle se glisse dans un sac et se ressort au premier coup de vent. Grand logo ou signature cardio dans le dos : choisis ton style.</p>",
+        "show_pulse": true,
+        "pad_top": 88,
+        "pad_bottom": 72,
+        "layout": "natural",
+        "max": 6,
+        "per_row": 3
+      }
+    },
+    "reviews": {
+      "type": "jt-reviews",
+      "settings": {
+        "kicker": "La communauté",
+        "title": "Ils en parlent",
+        "show_summary": true,
+        "cta_text": "Tu portes Jogging Therapy ? Partage ton avis.",
+        "cta_label": "Laisser un avis",
+        "instagram_url": "https://www.instagram.com/joggingtherapylifestyle/",
+        "instagram_label": "@joggingtherapylifestyle",
+        "pad_top": 88,
+        "pad_bottom": 88
+      }
+    },
+    "faq": {
+      "type": "jt-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle taille choisir ?",
+            "answer": "<p>La coupe est ajustée et la matière très extensible : prends ta taille habituelle. Entre deux tailles ? Choisis la plus petite pour plus de maintien, la plus grande pour plus d'aisance.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Quels coloris sont disponibles ?",
+            "answer": "<p>Bleu, Jaune fluo, Noir. Sélectionne une couleur pour voir la photo correspondante.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Comment entretenir ma pièce ?",
+            "answer": "<p>Lave-la en machine à 30 °C maximum, sans adoucissant, et laisse-la sécher à l'air libre. Elle garde ainsi son élasticité et ses couleurs plus longtemps.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison est-elle offerte ?",
+            "answer": "<p>Oui, dès 80 € d'achat. En dessous, les frais et délais de livraison sont affichés avant le paiement.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner ou échanger un article ?",
+            "answer": "<p>Bien sûr. Tu as 30 jours pour nous retourner un article non porté, non lavé et dans son emballage d'origine. Contacte-nous et on s'occupe du reste.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "kicker": "Aide",
+        "title": "Questions fréquentes",
+        "text": "<p>Une autre question ? Notre équipe te répond avec plaisir.</p>",
+        "button_label": "Nous contacter",
+        "button_link": ""
+      }
+    },
+    "related": {
+      "type": "jt-related-products",
+      "settings": {
+        "kicker": "À associer",
+        "title": "Complète ton look",
+        "intent": "related",
+        "fallback": "homme",
+        "limit": 4
+      }
+    },
+    "reassurance": {
+      "type": "jt-reassurance",
+      "blocks": {
+        "r1": {
+          "type": "item",
+          "settings": {
+            "title": "Livraison offerte",
+            "text": "Dès 80 € d'achat"
+          }
+        },
+        "r2": {
+          "type": "item",
+          "settings": {
+            "title": "Retours 30 jours",
+            "text": "Simples et rapides"
+          }
+        },
+        "r3": {
+          "type": "item",
+          "settings": {
+            "title": "Paiement sécurisé",
+            "text": "Transactions 100 % protégées"
+          }
+        },
+        "r4": {
+          "type": "item",
+          "settings": {
+            "title": "Service client",
+            "text": "Une vraie personne te répond"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "statement": "Plus qu'un vêtement, un état d'esprit.",
+        "pad_top": 88,
+        "pad_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main",
+    "highlights",
+    "lookbook",
+    "reviews",
+    "faq",
+    "related",
+    "reassurance"
+  ]
+}
